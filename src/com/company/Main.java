@@ -10,12 +10,22 @@ public class Main {
 
     public static void main(String[] args) {
 	// write your code here
+        InfixtToONP infix = new InfixtToONP("7 + 2 * 4 - 4");
+        ONP onp3 = new ONP("7 2 4 * 4 - +");
+        System.out.println(onp3.getResult());
+        System.out.println("Should be : 11");
 
-        ONP onp = new ONP("12 1 2 3 * 4 5 / + * +");
-        ONP onp2 = new ONP ("12 2 3 4 * 10 5 / + * +");
-        System.out.println((double)4/5);
-        System.out.println(onp2.getResult());
-        System.out.println(onp.getResult());
+        InfixtToONP infix2 = new InfixtToONP("2 / 2 + 3 * 5");
+        String[] newONP = infix2.getResult;
+        ONP onp4 = new ONP("2 2 / 3 5 * +");
+        System.out.println(onp4.getResult());
+        System.out.println("shoould be : 16");
+
+//        ONP onp = new ONP("12 1 2 3 * 4 5 / + * +");
+//        ONP onp2 = new ONP ("12 2 3 4 * 10 5 / + * +");
+//        System.out.println((double)4/5);
+//        System.out.println(onp2.getResult());
+//        System.out.println(onp.getResult());
 //        int result =0;
 //        int y = 0;
 //        int x = 0;
