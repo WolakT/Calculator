@@ -7,7 +7,7 @@ package com.company;
 public class Division {
     private double result;
 
-    public Division(int firstVal, int secondVal){
+    public Division(double firstVal, double secondVal){
         result = firstVal/secondVal;
     }
     public double getResult() {return result;}
