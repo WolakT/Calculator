@@ -8,7 +8,9 @@ import java.util.Stack;
 public class InfixtToONP {
     private Stack<String> output = new Stack<>();
     private Stack<String> stack = new Stack<>();
-    private String[] result;
+    private String[] tempresult;
+    private String result;
+    public String getResult() {return result;}
     public InfixtToONP(String s){
         String[] split = s.split(" ");
         for (int i = 0; i < split.length; i++) {
@@ -17,37 +19,74 @@ public class InfixtToONP {
                 output.push(split[i]);
             }catch (NumberFormatException e){
                 char charTemp = split[i].charAt(0);
-                if(!stack.isEmpty()) {
-                    char onStack = stack.peek().charAt(0);
-                    while (evaluateOperators(onStack, charTemp) && !stack.isEmpty()) {
-                        output.push(stack.pop());
-                        if(stack.isEmpty())
-                        {break;}
-                        else
-                        onStack = stack.peek().charAt(0);
+                switch (charTemp) {
+                    case '(': {
+                        stack.push(split[i]);
+                        break;
                     }
-                    stack.push(split[i]);
-                }else stack.push(split[i]);
+                    case ')': {
+                        while(stack.peek().charAt(0)!='('){
+                            output.push(stack.pop());
+                        } stack.pop();
+                        break;
+                    }
+                    default:{
+                        if(!stack.isEmpty()) {
+                            char onStack = stack.peek().charAt(0);
+                            while (!evaluateOperators(charTemp, onStack) && !stack.isEmpty()) {
+                                output.push(stack.pop());
+                                if(stack.isEmpty())
+                                {break;}
+                                else
+                                    onStack = stack.peek().charAt(0);
+                            }
+                            stack.push(split[i]);
+                        }else stack.push(split[i]);
+                    }
+                }
+
+
             }
 
         }while (!stack.isEmpty()){
             output.push(stack.pop());
         }
-        result = new String [output.size()];
+        tempresult = new String [output.size()];
         for (int i = output.size()-1; i >=0 ; i--) {
-            result[i] = output.pop();
+            tempresult[i] = output.pop();
+        }
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < tempresult.length; i++) {
+            builder.append(tempresult[i]);
+            builder.append(" ");
+        }
+            result = builder.toString();
         }
 
+    private int assignValueToOperators(char op){
+        int value = 0;
+        switch (op) {
+            case '(': value = 1;
+            break;
+            case '+': value = 2;
+            break;
+            case '-': value = 2;
+            break;
+            case '*': value = 3;
+            break;
+            case '/' : value = 3;
+            break;
+            case '^' : value = 4;
+            break;
         }
-    public String[] getResult() {return result;}
-
+        return value;
+    }
 
     private boolean evaluateOperators(char op1, char op2){
-        if((op1 =='/' || op1 == '*') && (op2 == '-' || op2 == '+')){
-            return true;
-        } else if((op1 == '+' || op1 =='-')&& (op2 == '*' || op2 == '/'))
-            return false;
-        else return false;
+       if(assignValueToOperators(op1)>assignValueToOperators(op2))
+           return true;
+       else {return false;}
+
     }
 
 }

@@ -1,11 +1,5 @@
 package com.company;
 
-import com.sun.javaws.exceptions.InvalidArgumentException;
-
-import java.io.*;
-import java.util.InputMismatchException;
-import java.util.Scanner;
-
 public class Main {
 
     public static void main(String[] args) {
@@ -15,17 +9,27 @@ public class Main {
         System.out.println(onp3.getResult());
         System.out.println("Should be : 11");
 
-        InfixtToONP infix2 = new InfixtToONP("2 / 2 + 3 * 5");
-        String[] newONP = infix2.getResult;
-        ONP onp4 = new ONP("2 2 / 3 5 * +");
+        InfixtToONP infix2 = new InfixtToONP("10 / ( 2 + 3 )*5 ");
+        String newONP = infix2.getResult();
+        System.out.println("this is new string result");
+        System.out.println(newONP);
+        ONP onp4 = new ONP(infix2.getResult());
         System.out.println(onp4.getResult());
-        System.out.println("shoould be : 16");
+        System.out.println("shoould be : 2");
+
+        InfixtToONP infix3 = new InfixtToONP("12 + 3 * ( 4 + 10 / 5 ) + 3");
+        String newONP2 = infix3.getResult();
+        System.out.println("this is new string result");
+        System.out.println(newONP2);
+        ONP onp5 = new ONP(infix3.getResult());
+        System.out.println(onp5.getResult());
+        System.out.println("shoould be : 33");
 
 //        ONP onp = new ONP("12 1 2 3 * 4 5 / + * +");
 //        ONP onp2 = new ONP ("12 2 3 4 * 10 5 / + * +");
 //        System.out.println((double)4/5);
-//        System.out.println(onp2.getResult());
-//        System.out.println(onp.getResult());
+//        System.out.println(onp2.getTempresult());
+//        System.out.println(onp.getTempresult());
 //        int result =0;
 //        int y = 0;
 //        int x = 0;
@@ -51,7 +55,7 @@ public class Main {
 //                   //System.out.println(charOperator);
 //                   Helper helper = new Helper(charOperator, firstVal, secondVal);
 //
-//                   System.out.println(helper.getResult());
+//                   System.out.println(helper.getTempresult());
 //               try {
 //                   FileWriter resultWrite = new FileWriter("abc.txt");
 //                   BufferedWriter bw = new BufferedWriter(resultWrite);
@@ -102,7 +106,7 @@ public class Main {
 //            charOperator = operator.charAt(0);
 //            y = sc.nextInt();
 //            Helper helper = new Helper(charOperator, result, y);
-//            System.out.println(helper.getResult());
+//            System.out.println(helper.getTempresult());
 //        } while(true);
         }
 }
